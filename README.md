@@ -48,7 +48,13 @@ let promise = new QueuedPromise((resolve, reject) => {
 });
 
 promiseQueue.add(promise);
+
 ```
+
+### Methods
+`pause()` paused the queue but doesnt stop already running promises
+
+`resume()` starts the queue and starts firing tasks.
 
 ### Events
 Do not change _ values directly. The event will not fire and changing to true wont trigger
