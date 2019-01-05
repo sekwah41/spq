@@ -6,6 +6,8 @@ at once due to file detection and not wanting to rewrite the code to fix it.
 This allows you to create queues and just replace the normal `new Promise` with
 whatever you choose to split processes into queues.
 
+Any custom promises also have the `then`, `catch` and `finally` methods.
+
 ## PromiseQueue
 ### Use
 **Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
