@@ -1,7 +1,13 @@
-# apq
-Advanced Promise Queue
+apq (Advanced Promise Queue)
+================
 
-Designed to configure and forget if needed and function the same as normal promises.
+This project was made because of an issue I had with too many Promises triggering 
+at once due to file detection and not wanting to rewrite the code to fix it.
+This allows you to create queues and just replace the normal `new Promise` with
+whatever you choose to split processes into queues.
+
+## PromiseQueue
+
 
 Example uses coming soon.
 
