@@ -51,6 +51,8 @@ promiseQueue.add(promise);
 ```
 
 ### Events
+Do not change _ values directly. The event will not fire and changing to true wont trigger
+queueing of new tasks.
 #### `paused`
 Fired when `_processQueue` state changed to false
 
