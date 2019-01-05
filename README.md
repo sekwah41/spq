@@ -1,4 +1,4 @@
-apq (Advanced Promise Queue)
+apq (Advanced Promise Queue) [![Build Status](https://travis-ci.com/sekwah41/apq.svg?branch=master)](https://travis-ci.com/sekwah41/apq/branches)
 ================
 
 This project was made because of an issue I had with too many Promises triggering 
