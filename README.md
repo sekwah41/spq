@@ -11,7 +11,7 @@ whatever you choose to split processes into queues.
 **Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
 This means you can have multiple queues and just set a different name for `QueuedPromise` on each.
 ```javascript
-let PromiseQueue = require('apq');
+let PromiseQueue = require('spq');
 
 let promiseQueue = new PromiseQueue(maxConcurrent);
 
@@ -37,6 +37,8 @@ If you dont want promises to automatically be added to the queue you can set aut
 They can then be added manually.
 
 ```javascript
+let PromiseQueue = require('spq');
+
 let promiseQueue = new PromiseQueue(maxConcurrent, autoAdd);
 
 let QueuedPromise = promiseQueue.QueuedPromise;
