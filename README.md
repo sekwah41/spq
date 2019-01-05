@@ -7,14 +7,53 @@ This allows you to create queues and just replace the normal `new Promise` with
 whatever you choose to split processes into queues.
 
 ## PromiseQueue
+### Use
+**Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
+This means you can have multiple queues and just set a different name for `QueuedPromise` on each.
+```javascript
+let PromiseQueue = require('apq');
 
+let promiseQueue = new PromiseQueue(maxConcurrent);
 
-Example uses coming soon.
+let QueuedPromise = promiseQueue.QueuedPromise;
 
-Events planned for the queue.
+// Will auto add to promiseQueue
+let promise = new QueuedPromise((resolve, reject) => {
+    
+});
 
-'empty' The queued tasks are done
+// Example of if you want two different queues
+let secondPromiseQueue = new PromiseQueue(maxConcurrent, autoAdd);
 
-'paused' Somewhere code has paused the queue
+let DataProcessPromise = promiseQueue.QueuedPromise;
 
-'resumed' queue.resume(); has been called when the queue was paused
+// Will auto add to secondPromiseQueue
+let promise = new DataProcessPromise((resolve, reject) => {
+    
+});
+```
+
+If you dont want promises to automatically be added to the queue you can set autoAdd to false.
+They can then be added manually.
+
+```javascript
+let promiseQueue = new PromiseQueue(maxConcurrent, autoAdd);
+
+let QueuedPromise = promiseQueue.QueuedPromise;
+
+let promise = new QueuedPromise((resolve, reject) => {
+    
+});
+
+promiseQueue.add(promise);
+```
+
+### Events
+#### `paused`
+Fired when `_processQueue` state changed to false
+
+#### `resumed`
+Fired when `_processQueue` state changed to true
+
+##Incomplete Documentation
+The the main functions and use are there but details may be missing.

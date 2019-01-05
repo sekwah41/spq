@@ -1,7 +1,10 @@
 'use strict';
+var EventEmitter = require('events').EventEmitter;
 
-class PromiseQueue extends Event{
-    constructor(maxConcurrent = 1, shouldAutoAdd = true) {
+
+class PromiseQueue extends EventEmitter {
+    constructor(maxConcurrent = 1, autoAdd = true) {
+        super();
 
         let reference = this;
 
@@ -25,14 +28,16 @@ class PromiseQueue extends Event{
                     this.reject = reject;  
                 }.bind(this));
 
-                if(shouldAutoAdd) {
+                if(autoAdd) {
                     reference.add(this);
                 }
             }
         }
 
-        this.currentlyRunning = 0;
+        this._currentlyRunning = 0;
         this.maxConcurrent = maxConcurrent;
+
+        this._processQueue = true;
         
         this.promiseQueue = [];
     }
@@ -42,20 +47,36 @@ class PromiseQueue extends Event{
         this._checkQueue();
     }
 
+    pause() {
+        if(this._processQueue) {
+            this.emit('paused')
+            this._processQueue = false;
+        }
+    }
+
+    resume() {
+        if(!this._processQueue) {
+            this.emit('resumed')
+            this._processQueue = true;
+            this._checkQueue();
+        }
+    }
+
     _checkQueue() {
-        if(this.currentlyRunning < this.maxConcurrent) {
+        if(this._currentlyRunning < this.maxConcurrent) {
             if(this.promiseQueue.length > 0) {
                 this._runPromise(this.promiseQueue.shift());
+                this._checkQueue();
             }
         }
     }
 
     _runPromise(promise) {
         promise.finally(function () {
-            this.currentlyRunning--;
+            this._currentlyRunning--;
             this._checkQueue();
         }.bind(this));
-        this.currentlyRunning++;
+        this._currentlyRunning++;
         promise.promiseFunc(promise.resolve, promise.reject);
     }
 
