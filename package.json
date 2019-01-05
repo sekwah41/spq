@@ -1,16 +1,17 @@
 {
-  "name": "apq",
+  "name": "spq",
   "version": "1.0.0",
-  "description": "Advanced Promise Queue",
+  "description": "Simple Promise Queue",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sekwah41/apq.git"
+    "url": "git+https://github.com/sekwah41/spq.git"
   },
   "keywords": [
+    "Simple",
     "Promise",
     "Queue"
   ],
@@ -21,7 +22,7 @@
   "author": "sekwah41",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sekwah41/apq/issues"
+    "url": "https://github.com/sekwah41/spq/issues"
   },
-  "homepage": "https://github.com/sekwah41/apq#readme"
+  "homepage": "https://github.com/sekwah41/spq#readme"
 }
