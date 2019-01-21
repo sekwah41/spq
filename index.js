@@ -10,9 +10,9 @@ class PromiseQueue extends EventEmitter {
     constructor(maxConcurrent = 1, autoAdd = true) {
         super();
 
-        let reference = this;
-        
         this.processing = [];
+
+        let reference = this;
 
         this.QueuedPromise = class QueuedPromise {
             then(thenResolve, thenReject) {
@@ -24,15 +24,21 @@ class PromiseQueue extends EventEmitter {
             }
 
             catch(funcCatch) {
-                return this.promise.catch(funcCatch);
+                this.catchFunctions.push(funcCatch);
+                return this.promise;
             }
             constructor(promiseFunc) {
                 this.promiseFunc = promiseFunc;
                 this.promiseReturnValues = [];
+                this.catchFunctions = [];
                 this.promise = new Promise(function(resolve, reject) {
                     this.resolve = resolve;
                     this.reject = reject;  
-                }.bind(this));
+                }.bind(this)).catch(() => {
+                    for(let catchFunc of this.catchFunctions) {
+                        catchFunc();
+                    }
+                });
 
                 if(autoAdd) {
                     reference.add(this);
@@ -69,7 +75,7 @@ class PromiseQueue extends EventEmitter {
     }
 
     _checkQueue() {
-        if(this._processQueue && this._currentlyRunning < this.maxConcurrent) {
+        if(this._currentlyRunning < this.maxConcurrent && this._processQueue) {
             if(this.promiseQueue.length > 0) {
                 this._runPromise(this.promiseQueue.shift());
                 this._checkQueue();
