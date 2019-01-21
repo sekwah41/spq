@@ -22,6 +22,26 @@ describe('Promise then check', () => {
         
         promise.then(() => returnedValues.push(12));
     });
+
+    it('catch() works', (done) => {
+        let returnedValues = [];
+        let promise = new QueuedPromise((resolve, reject) => {
+            reject();
+        });
+
+        promise.catch(() => {
+            returnedValues.push(2);
+        });
+
+        promise.catch(() => {
+            returnedValues.push(4);
+        });
+        
+        setTimeout(() => {
+            expect(returnedValues).to.deep.equal([2,4]);
+            done();
+        },100)
+    });
 });
 
 describe('Promise order check (Uses timeouts its not slow)', () => {
