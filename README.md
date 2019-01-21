@@ -8,6 +8,8 @@ whatever you choose to split processes into queues.
 
 Any custom promises also have the `then`, `catch` and `finally` methods.
 
+**Only issue is catch atm works slightly different, it was working fine but was also throwing an error saying apparantly it was unhandled despite firing the function.**
+
 ## PromiseQueue
 ### Use
 **Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
