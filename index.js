@@ -10,9 +10,9 @@ class PromiseQueue extends EventEmitter {
     constructor(maxConcurrent = 1, autoAdd = true) {
         super();
 
-        this.processing = [];
-
         let reference = this;
+        
+        this.processing = [];
 
         this.QueuedPromise = class QueuedPromise {
             then(thenResolve, thenReject) {
@@ -69,7 +69,7 @@ class PromiseQueue extends EventEmitter {
     }
 
     _checkQueue() {
-        if(this._currentlyRunning < this.maxConcurrent) {
+        if(this._processQueue && this._currentlyRunning < this.maxConcurrent) {
             if(this.promiseQueue.length > 0) {
                 this._runPromise(this.promiseQueue.shift());
                 this._checkQueue();
