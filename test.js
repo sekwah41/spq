@@ -84,4 +84,40 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
 
     });
 
+    it('Pause Queue', (done) => {
+
+        let customQueue = new PromiseQueue(2);
+        let QueuedPromise = customQueue.QueuedPromise;
+
+        customQueue.pause();
+
+        let returnedValues = [];
+
+        new QueuedPromise((resolve, reject) => {
+            returnedValues.push(1)
+            resolve();
+        });
+        new QueuedPromise((resolve, reject) => {
+            setTimeout(() => {
+                returnedValues.push(2)
+                resolve();
+            }, 20);
+        });
+        new QueuedPromise((resolve, reject) => {
+            returnedValues.push(3)
+            resolve();
+        });
+
+        setTimeout(() => {
+            expect(returnedValues).to.deep.equal([]);
+            customQueue.resume();
+        }, 100);
+
+        setTimeout(() => {
+            expect(returnedValues).to.deep.equal([1,3,2]);
+            done();
+        }, 200);
+
+    });
+
 });
