@@ -1,10 +1,16 @@
 'use strict';
 var EventEmitter = require('events').EventEmitter;
 
+function remove(array, element) {
+    const index = array.indexOf(element);
+    array.splice(index, 1);
+}
 
 class PromiseQueue extends EventEmitter {
     constructor(maxConcurrent = 1, autoAdd = true) {
         super();
+
+        this.processing = [];
 
         let reference = this;
 
@@ -72,9 +78,11 @@ class PromiseQueue extends EventEmitter {
     }
 
     _runPromise(promise) {
+        this.processing.push(promise);
         promise.finally(function () {
             this._currentlyRunning--;
             this._checkQueue();
+            remove(this.processing, promise);
         }.bind(this));
         this._currentlyRunning++;
         promise.promiseFunc(promise.resolve, promise.reject);
