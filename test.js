@@ -29,7 +29,7 @@ describe('Promise then check', () => {
             reject();
         });
 
-        promise.catch(() => {
+        promise.then(() => {}, () => {
             returnedValues.push(2);
         });
 
