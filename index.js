@@ -16,7 +16,8 @@ class PromiseQueue extends EventEmitter {
 
         this.QueuedPromise = class QueuedPromise {
             then(thenResolve, thenReject) {
-                return this.promise.then(thenResolve, thenReject);
+                this.catch(thenReject);
+                return this.promise.then(thenResolve);
             }
 
             finally(funcFinally) {
