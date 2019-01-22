@@ -1,4 +1,5 @@
 'use strict';
+
 var EventEmitter = require('events').EventEmitter;
 
 function remove(array, element) {
@@ -16,7 +17,9 @@ class PromiseQueue extends EventEmitter {
 
         this.QueuedPromise = class QueuedPromise {
             then(thenResolve, thenReject) {
-                this.catch(thenReject);
+                if(thenReject) {
+                    this.catch(thenReject);
+                }
                 return this.promise.then(thenResolve);
             }
 
