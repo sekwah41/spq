@@ -1,6 +1,6 @@
 {
   "name": "spq",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "Simple Promise Queue",
   "main": "index.js",
   "scripts": {

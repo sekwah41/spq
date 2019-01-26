@@ -30,16 +30,17 @@ describe('Promise then check', () => {
         });
 
         promise.then(() => {}, (e) => {
-            returnedValues.push(5);
+            returnedValues.push(e);
             returnedValues.push(2);
         });
 
-        promise.catch(() => {
+        promise.catch((e) => {
+            returnedValues.push(e);
             returnedValues.push(4);
         });
         
         setTimeout(() => {
-            expect(returnedValues).to.deep.equal([5,2,4]);
+            expect(returnedValues).to.deep.equal([5,2,5,4]);
             done();
         },100)
     });
