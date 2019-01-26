@@ -26,10 +26,11 @@ describe('Promise then check', () => {
     it('catch() works', (done) => {
         let returnedValues = [];
         let promise = new QueuedPromise((resolve, reject) => {
-            reject();
+            reject(5);
         });
 
-        promise.then(() => {}, () => {
+        promise.then(() => {}, (e) => {
+            returnedValues.push(5);
             returnedValues.push(2);
         });
 
@@ -38,7 +39,7 @@ describe('Promise then check', () => {
         });
         
         setTimeout(() => {
-            expect(returnedValues).to.deep.equal([2,4]);
+            expect(returnedValues).to.deep.equal([5,2,4]);
             done();
         },100)
     });
@@ -59,12 +60,12 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         });
         new QueuedPromise((resolve, reject) => {
             setTimeout(() => {
-                returnedValues.push(2)
+                returnedValues.push(2);
                 resolve();
             }, 20);
         });
         new QueuedPromise((resolve, reject) => {
-            returnedValues.push(3)
+            returnedValues.push(3);
             resolve();
         });
 
@@ -88,12 +89,12 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         });
         new QueuedPromise((resolve, reject) => {
             setTimeout(() => {
-                returnedValues.push(2)
+                returnedValues.push(2);
                 resolve();
             }, 20);
         });
         new QueuedPromise((resolve, reject) => {
-            returnedValues.push(3)
+            returnedValues.push(3);
             resolve();
         });
 
@@ -119,12 +120,12 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         });
         new QueuedPromise((resolve, reject) => {
             setTimeout(() => {
-                returnedValues.push(2)
+                returnedValues.push(2);
                 resolve();
             }, 20);
         });
         new QueuedPromise((resolve, reject) => {
-            returnedValues.push(3)
+            returnedValues.push(3);
             resolve();
         });
 
