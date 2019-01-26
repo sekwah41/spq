@@ -38,9 +38,9 @@ class PromiseQueue extends EventEmitter {
                 this.promise = new Promise(function(resolve, reject) {
                     this.resolve = resolve;
                     this.reject = reject;  
-                }.bind(this)).catch(() => {
+                }.bind(this)).catch((rej) => {
                     for(let catchFunc of this.catchFunctions) {
-                        catchFunc();
+                        catchFunc(rej);
                     }
                 });
 
@@ -48,7 +48,7 @@ class PromiseQueue extends EventEmitter {
                     reference.add(this);
                 }
             }
-        }
+        };
 
         this._currentlyRunning = 0;
         this.maxConcurrent = maxConcurrent;
@@ -65,14 +65,14 @@ class PromiseQueue extends EventEmitter {
 
     pause() {
         if(this._processQueue) {
-            this.emit('paused')
+            this.emit('paused');
             this._processQueue = false;
         }
     }
 
     resume() {
         if(!this._processQueue) {
-            this.emit('resumed')
+            this.emit('resumed');
             this._processQueue = true;
             this._checkQueue();
         }
