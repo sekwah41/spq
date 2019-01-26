@@ -29,7 +29,7 @@ let promise = new QueuedPromise((resolve, reject) => {
 // Example of if you want two different queues
 let secondPromiseQueue = new PromiseQueue(maxConcurrent, autoAdd);
 
-let DataProcessPromise = promiseQueue.QueuedPromise;
+let DataProcessPromise = secondPromiseQueue.QueuedPromise;
 
 // Will auto add to secondPromiseQueue
 let promise = new DataProcessPromise((resolve, reject) => {
