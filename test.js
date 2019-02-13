@@ -17,9 +17,10 @@ describe('Promise then check', () => {
         promise.then((value) => {
             hasRunThen = true;
         }).catch((e) => {
-
+            hasRunCatch = true;
         }).finally(() => {
             expect(hasRunThen).to.equal(false);
+            expect(hasRunCatch).to.equal(true);
             done();
         });
     });
@@ -41,7 +42,7 @@ describe('Promise then check', () => {
     });
 });
 
-describe('Promise order check (Uses timeouts its not slow)', () => {
+describe('Promise order check', () => {
     let PromiseQueue = require('./index');
 
     it('Single queue (Forces set order)', (done) => {
@@ -51,14 +52,14 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         let returnedValues = [];
 
         new QueuedPromise((resolve, reject) => {
-            returnedValues.push(1)
+            returnedValues.push(1);
             resolve();
         });
         new QueuedPromise((resolve, reject) => {
             setTimeout(() => {
                 returnedValues.push(2);
                 resolve();
-            }, 20);
+            }, 10);
         });
         new QueuedPromise((resolve, reject) => {
             returnedValues.push(3);
@@ -68,7 +69,7 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         setTimeout(() => {
             expect(returnedValues).to.deep.equal([1,2,3]);
             done();
-        }, 100);
+        }, 20);
 
     });
 
@@ -80,14 +81,14 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         let returnedValues = [];
 
         new QueuedPromise((resolve, reject) => {
-            returnedValues.push(1)
+            returnedValues.push(1);
             resolve();
         });
         new QueuedPromise((resolve, reject) => {
             setTimeout(() => {
                 returnedValues.push(2);
                 resolve();
-            }, 20);
+            }, 10);
         });
         new QueuedPromise((resolve, reject) => {
             returnedValues.push(3);
@@ -97,7 +98,7 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         setTimeout(() => {
             expect(returnedValues).to.deep.equal([1,3,2]);
             done();
-        }, 100);
+        }, 20);
 
     });
 
@@ -111,14 +112,14 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         let returnedValues = [];
 
         new QueuedPromise((resolve, reject) => {
-            returnedValues.push(1)
+            returnedValues.push(1);
             resolve();
         });
         new QueuedPromise((resolve, reject) => {
             setTimeout(() => {
                 returnedValues.push(2);
                 resolve();
-            }, 20);
+            }, 5);
         });
         new QueuedPromise((resolve, reject) => {
             returnedValues.push(3);
@@ -128,12 +129,12 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
         setTimeout(() => {
             expect(returnedValues).to.deep.equal([]);
             customQueue.resume();
-        }, 100);
+        }, 10);
 
         setTimeout(() => {
             expect(returnedValues).to.deep.equal([1,3,2]);
             done();
-        }, 200);
+        }, 30);
 
     });
 
