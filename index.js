@@ -20,27 +20,38 @@ class PromiseQueue extends EventEmitter {
                 if(thenReject) {
                     this.catch(thenReject);
                 }
-                return this.promise.then(thenResolve);
+                this.resolveFunctions.push(thenResolve);
+                return this;
             }
 
             finally(funcFinally) {
-                return this.promise.finally(funcFinally);
+                this.finallyFunctions.push(funcFinally);
+                return this;
             }
 
             catch(funcCatch) {
                 this.catchFunctions.push(funcCatch);
-                return this.promise;
+                return this;
             }
             constructor(promiseFunc) {
                 this.promiseFunc = promiseFunc;
-                this.promiseReturnValues = [];
+                this.resolveFunctions = [];
                 this.catchFunctions = [];
+                this.finallyFunctions = [];
                 this.promise = new Promise(function(resolve, reject) {
                     this.resolve = resolve;
-                    this.reject = reject;  
-                }.bind(this)).catch((rej) => {
+                    this.reject = reject;
+                }.bind(this)).then((res) => {
+                    for(let resolveFunc of this.resolveFunctions) {
+                        resolveFunc(res);
+                    }
+                }).catch((rej) => {
                     for(let catchFunc of this.catchFunctions) {
                         catchFunc(rej);
+                    }
+                }).finally(() => {
+                    for(let finallyFunc of this.finallyFunctions) {
+                        finallyFunc();
                     }
                 });
 
@@ -54,7 +65,7 @@ class PromiseQueue extends EventEmitter {
         this.maxConcurrent = maxConcurrent;
 
         this._processQueue = true;
-        
+
         this.promiseQueue = [];
     }
 

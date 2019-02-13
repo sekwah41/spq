@@ -5,44 +5,39 @@ describe('Promise then check', () => {
     let customQueue = new PromiseQueue(1);
     let QueuedPromise = customQueue.QueuedPromise;
 
-    it('Correct then() execution order', (done) => {
+    it('Checking when rejected that only catch is fired', (done) => {
+
         let returnedValues = [];
         let promise = new QueuedPromise((resolve, reject) => {
-            resolve();
+            reject(6);
         });
-        
-        promise.then(() => returnedValues.push(2));
-        promise.then(() => returnedValues.push(3)).then(() => returnedValues.push(4))
-            .then(() => {
-                expect(returnedValues).to.deep.equal([2,3,12,4]);
-                done();
-            }).catch((e) => {
-                done(e);
-            });
-        
-        promise.then(() => returnedValues.push(12));
+
+        let hasRunThen = false;
+        let hasRunCatch = false;
+        promise.then((value) => {
+            hasRunThen = true;
+        }).catch((e) => {
+
+        }).finally(() => {
+            expect(hasRunThen).to.equal(false);
+            done();
+        });
     });
 
     it('catch() works', (done) => {
+
         let returnedValues = [];
-        let promise = new QueuedPromise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
             reject(5);
         });
-
-        promise.then(() => {}, (e) => {
-            returnedValues.push(e);
-            returnedValues.push(2);
-        });
-
+        
         promise.catch((e) => {
             returnedValues.push(e);
-            returnedValues.push(4);
-        });
-        
-        setTimeout(() => {
-            expect(returnedValues).to.deep.equal([5,2,5,4]);
+            returnedValues.push(2);
+        }).finally(() => {
+            expect(returnedValues).to.deep.equal([5,2]);
             done();
-        },100)
+        });
     });
 });
 
@@ -143,3 +138,4 @@ describe('Promise order check (Uses timeouts its not slow)', () => {
     });
 
 });
+process.on('unhandledRejection', r => console.log("ERROR", r));
