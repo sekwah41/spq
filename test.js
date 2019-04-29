@@ -1,11 +1,12 @@
-let {expect, assert} = require("chai");
 
+
+let PromiseQueue = require('./index');
+let customQueue = new PromiseQueue(1);
+let QueuedPromise = customQueue.QueuedPromise;
 describe('Promise then check', () => {
-    let PromiseQueue = require('./index');
-    let customQueue = new PromiseQueue(1);
-    let QueuedPromise = customQueue.QueuedPromise;
 
-    it('Checking when rejected that only catch is fired', (done) => {
+
+    test('Checking when rejected that only catch is fired', (done) => {
 
         let returnedValues = [];
         let promise = new QueuedPromise((resolve, reject) => {
@@ -19,13 +20,13 @@ describe('Promise then check', () => {
         }).catch((e) => {
             hasRunCatch = true;
         }).finally(() => {
-            expect(hasRunThen).to.equal(false);
-            expect(hasRunCatch).to.equal(true);
+            expect(hasRunThen).toBe(false);
+            expect(hasRunCatch).toBe(true);
             done();
         });
     });
 
-    it('catch() works', (done) => {
+    test('catch() works', (done) => {
 
         let returnedValues = [];
         let promise = new Promise((resolve, reject) => {
@@ -36,7 +37,7 @@ describe('Promise then check', () => {
             returnedValues.push(e);
             returnedValues.push(2);
         }).finally(() => {
-            expect(returnedValues).to.deep.equal([5,2]);
+            expect(returnedValues).toMatchObject([5,2]);
             done();
         });
     });
@@ -45,7 +46,7 @@ describe('Promise then check', () => {
 describe('Promise order check', () => {
     let PromiseQueue = require('./index');
 
-    it('Single queue (Forces set order)', (done) => {
+    test('Single queue (Forces set order)', (done) => {
         let customQueue = new PromiseQueue(1);
         let QueuedPromise = customQueue.QueuedPromise;
 
@@ -67,13 +68,13 @@ describe('Promise order check', () => {
         });
 
         setTimeout(() => {
-            expect(returnedValues).to.deep.equal([1,2,3]);
+            expect(returnedValues).toMatchObject([1,2,3]);
             done();
         }, 20);
 
     });
 
-    it('Double queue', (done) => {
+    test('Double queue', (done) => {
 
         let customQueue = new PromiseQueue(2);
         let QueuedPromise = customQueue.QueuedPromise;
@@ -96,13 +97,13 @@ describe('Promise order check', () => {
         });
 
         setTimeout(() => {
-            expect(returnedValues).to.deep.equal([1,3,2]);
+            expect(returnedValues).toMatchObject([1,3,2]);
             done();
         }, 20);
 
     });
 
-    it('Pause Queue', (done) => {
+    test('Pause Queue', (done) => {
 
         let customQueue = new PromiseQueue(2);
         let QueuedPromise = customQueue.QueuedPromise;
@@ -127,12 +128,12 @@ describe('Promise order check', () => {
         });
 
         setTimeout(() => {
-            expect(returnedValues).to.deep.equal([]);
+            expect(returnedValues).toMatchObject([]);
             customQueue.resume();
         }, 10);
 
         setTimeout(() => {
-            expect(returnedValues).to.deep.equal([1,3,2]);
+            expect(returnedValues).toMatchObject([1,3,2]);
             done();
         }, 30);
 
