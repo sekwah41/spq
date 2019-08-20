@@ -16,7 +16,7 @@
     "Queue"
   ],
   "devDependencies": {
-    "jest": "^24.7.1"
+    "jest": "^24.9.0"
   },
   "author": "sekwah41",
   "license": "MIT",
