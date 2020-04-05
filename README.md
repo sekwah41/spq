@@ -10,8 +10,6 @@ whatever you choose to split processes into queues.
 
 Any custom promises also have the `then`, `catch` and `finally` methods.
 
-**Only issue is doesnt work atm. There is a fix to stop nodejs throwing pointless exceptions (All the logic worked and code would trigger fine but nodejs wouldnt detect the fact it was being caught for some reason)**
-
 ## PromiseQueue
 ### Use
 **Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
