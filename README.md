@@ -1,6 +1,8 @@
 spq (Simple Promise Queue) [![Build Status](https://travis-ci.com/sekwah41/spq.svg?branch=master)](https://travis-ci.com/sekwah41/spq/branches)
 ================
 
+Note: This was just a temp project to test a few libraries and to fill a specific use case. The project was never ment to go any further than this and thus I do not maintain this in case anyone looks to use this in the future.
+
 This project was made because of an issue I had with too many Promises triggering 
 at once due to file detection and not wanting to rewrite the code to fix it.
 This allows you to create queues and just replace the normal `new Promise` with
