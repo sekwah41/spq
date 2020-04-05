@@ -1,6 +1,6 @@
 {
   "name": "spq",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Simple Promise Queue",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "Queue"
   ],
   "devDependencies": {
-    "jest": "^24.9.0"
+    "jest": "^25.2.7"
   },
   "author": "sekwah41",
   "license": "MIT",
