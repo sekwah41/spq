@@ -1,4 +1,4 @@
-spq (Simple Promise Queue) [![Build Status](https://travis-ci.com/sekwah41/spq.svg?branch=master)](https://travis-ci.com/sekwah41/spq/branches)
+spq (Simple Promise Queue) [![Build](https://github.com/sekwah41/spq/actions/workflows/ci.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/ci.yml) [![CodeQL](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml)
 ================
 
 This project was made because of an issue I had with too many Promises triggering 
