@@ -62,10 +62,15 @@ promiseQueue.add(promise);
 Do not change _ values directly. The event will not fire and changing to true wont trigger
 queueing of new tasks.
 #### `paused`
-Fired when `_processQueue` state changed to false
+Fired when the queue is paused.
 
 #### `resumed`
-Fired when `_processQueue` state changed to true
+Fired when the queue is resumed.
 
-##Incomplete Documentation
-The the main functions and use are there but details may be missing.
+#### `finished`
+Fired when the last task is finished and no more are queued.
+
+
+### Future of this project
+This was meant to be a quick projects to help queue code which otherwise overloads systems, if there are any features
+please feel free to open an issue and suggest possible features or ways to interact with this library.
