@@ -32,7 +32,7 @@ describe('Promise then check', () => {
         let promise = new Promise((resolve, reject) => {
             reject(5);
         });
-        
+
         promise.catch((e) => {
             returnedValues.push(e);
             returnedValues.push(2);
@@ -103,6 +103,34 @@ describe('Promise order check', () => {
 
     });
 
+    test('Emit finished event', (done) => {
+
+        let customQueue = new PromiseQueue(2);
+        let QueuedPromise = customQueue.QueuedPromise;
+
+        let returnedValues = [];
+
+        customQueue.on('finished', () => {
+            expect(returnedValues).toMatchObject([1,3,2]);
+            done();
+        });
+
+        new QueuedPromise((resolve) => {
+            returnedValues.push(1);
+            resolve();
+        });
+        new QueuedPromise((resolve) => {
+            setTimeout(() => {
+                returnedValues.push(2);
+                resolve();
+            }, 5);
+        });
+        new QueuedPromise((resolve) => {
+            returnedValues.push(3);
+            resolve();
+        });
+    });
+
     test('Pause Queue', (done) => {
 
         let customQueue = new PromiseQueue(2);
@@ -112,30 +140,34 @@ describe('Promise order check', () => {
 
         let returnedValues = [];
 
-        new QueuedPromise((resolve, reject) => {
+        new QueuedPromise((resolve) => {
             returnedValues.push(1);
             resolve();
         });
-        new QueuedPromise((resolve, reject) => {
+        new QueuedPromise((resolve) => {
             setTimeout(() => {
                 returnedValues.push(2);
                 resolve();
             }, 5);
         });
-        new QueuedPromise((resolve, reject) => {
+        new QueuedPromise((resolve) => {
             returnedValues.push(3);
             resolve();
         });
 
         setTimeout(() => {
             expect(returnedValues).toMatchObject([]);
-            customQueue.resume();
         }, 10);
+
+        setTimeout(() => {
+            expect(returnedValues).toMatchObject([]);
+            customQueue.resume();
+        }, 20);
 
         setTimeout(() => {
             expect(returnedValues).toMatchObject([1,3,2]);
             done();
-        }, 30);
+        }, 40);
 
     });
 

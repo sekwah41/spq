@@ -1,6 +1,6 @@
 {
   "name": "spq",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "description": "Simple Promise Queue",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/sekwah41/spq/issues"
   },
-  "homepage": "https://github.com/sekwah41/spq#readme"
+  "homepage": "https://github.com/sekwah41/spq#readme",
+  "dependencies": {
+    "events": "^3.3.0"
+  }
 }

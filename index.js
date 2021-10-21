@@ -1,6 +1,6 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter;
+const EventEmitter = require('events');
 
 function remove(array, element) {
     const index = array.indexOf(element);
@@ -64,7 +64,7 @@ class PromiseQueue extends EventEmitter {
         this._currentlyRunning = 0;
         this.maxConcurrent = maxConcurrent;
 
-        this._processQueue = true;
+        this._shouldProcessQueue = true;
 
         this.promiseQueue = [];
     }
@@ -75,25 +75,27 @@ class PromiseQueue extends EventEmitter {
     }
 
     pause() {
-        if(this._processQueue) {
+        if(this._shouldProcessQueue) {
             this.emit('paused');
-            this._processQueue = false;
+            this._shouldProcessQueue = false;
         }
     }
 
     resume() {
-        if(!this._processQueue) {
+        if(!this._shouldProcessQueue) {
             this.emit('resumed');
-            this._processQueue = true;
+            this._shouldProcessQueue = true;
             this._checkQueue();
         }
     }
 
     _checkQueue() {
-        if(this._currentlyRunning < this.maxConcurrent && this._processQueue) {
+        if(this._currentlyRunning < this.maxConcurrent && this._shouldProcessQueue) {
             if(this.promiseQueue.length > 0) {
                 this._runPromise(this.promiseQueue.shift());
                 this._checkQueue();
+            } else if(this._currentlyRunning === 0 && this.promiseQueue.length === 0) {
+                this.emit('finished');
             }
         }
     }
