@@ -32,17 +32,17 @@
   ],
   "devDependencies": {
     "@auto-it/conventional-commits": "10.32.1",
-    "@auto-it/npm": "^10.32.1",
+    "@auto-it/npm": "10.32.1",
     "@auto-it/released": "10.32.1",
-    "@types/jest": "^27.0.2",
-    "auto": "^10.32.1",
+    "@types/jest": "27.0.2",
+    "auto": "10.32.1",
     "conventional-changelog-angular": "5.0.13",
-    "jest": "^27.3.1",
-    "prettier": "^2.4.1",
-    "ts-jest": "^27.0.7",
-    "ts-loader": "^9.2.6",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0"
+    "jest": "27.3.1",
+    "prettier": "2.4.1",
+    "ts-jest": "27.0.7",
+    "ts-loader": "9.2.6",
+    "tslint": "6.1.3",
+    "tslint-config-prettier": "1.18.0"
   },
   "author": {
     "name": "Sekwah",
