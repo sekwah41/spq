@@ -1,0 +1,15 @@
+{
+  "baseBranch": "master",
+  "plugins": [
+    ["conventional-commits", { "preset": "angular" }],
+    "released",
+  ],
+  "owner": "sekwah41",
+  "repo": "spq",
+  "name": "Sekwah",
+  "email": "contact@sekwah.com",
+  "onlyPublishWithReleaseLabel": true,
+  "shipit": {
+      "onlyGraduateWithReleaseLabel": true
+  }
+}
