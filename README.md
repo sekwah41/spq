@@ -1,60 +1,49 @@
 spq (Simple Promise Queue) [![Build](https://github.com/sekwah41/spq/actions/workflows/ci.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/ci.yml) [![CodeQL](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml)
 ================
 
-This project was made because of an issue I had with too many Promises triggering 
-at once due to file detection and not wanting to rewrite the code to fix it.
-This allows you to create queues and just replace the normal `new Promise` with
-whatever you choose to split processes into queues.
+This project exists because of an ongoing problem in projects with too many promises resolving at once.
+Rather than rewriting the workflow to work with scheduling library's this is designed to be a drop in replacement.
 
-Any custom promises also have the `then`, `catch` and `finally` methods.
+After a few lines of configuring you should be able to just replace `new Promise` with `QueuedPromise`.
+You can also provide custom names which will allow you to add the promises to different queues.
 
-You have the ability to create tasks or wrap them with promises where needed.
+### Example
+Using promises
+```javascript
+const firstPromise = new Promise((resolve: () => void) => {
+    setTimeout(() => {
+        resolve(2);
+    }, 10);
+});
+
+// Imagine if there was an issue with this running at the same time or too many at once. e.g. too many open connections
+const secondPromise = new Promise((resolve: () => void) => {
+    resolve(3);
+});
+
+Promise.all([firstPromise, secondPromise]);
+```
+
+Converted to using the PromiseQueue
+```javascript
+const customQueue = new PromiseQueue(1);
+const QueuedPromise = customQueue.QueuedPromise;
+
+const firstPromise = QueuedPromise((resolve: () => void) => {
+    setTimeout(() => {
+        resolve(2);
+    }, 10);
+});
+
+// This won't run until the first one is fully resolved as the queue has a size of 1
+const secondPromise = QueuedPromise((resolve: () => void) => {
+    resolve(3);
+});
+
+Promise.all([firstPromise, secondPromise]);
+```
 
 ## PromiseQueue
-### Use
-**Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
-This means you can have multiple queues and just set a different name for `QueuedPromise` on each.
-```javascript
-let PromiseQueue = require('spq');
-
-let promiseQueue = new PromiseQueue(maxConcurrent);
-
-let QueuedPromise = promiseQueue.QueuedPromise;
-
-// Will auto add to promiseQueue
-let promise = new QueuedPromise((resolve, reject) => {
-    
-});
-
-// Example of if you want two different queues
-let secondPromiseQueue = new PromiseQueue(maxConcurrent, autoAdd);
-
-let DataProcessPromise = secondPromiseQueue.QueuedPromise;
-
-// Will auto add to secondPromiseQueue
-let promise = new DataProcessPromise((resolve, reject) => {
-    
-});
-```
-
-If you dont want promises to automatically be added to the queue you can set autoAdd to false.
-They can then be added manually.
-
-```javascript
-let PromiseQueue = require('spq');
-
-let promiseQueue = new PromiseQueue(maxConcurrent, autoAdd);
-
-let QueuedPromise = promiseQueue.QueuedPromise;
-
-let promise = new QueuedPromise((resolve, reject) => {
-    
-});
-
-promiseQueue.add(promise);
-
-```
-
 ### Methods
 `pause()` paused the queue but doesnt stop already running promises
 
