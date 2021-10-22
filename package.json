@@ -2,29 +2,51 @@
   "name": "spq",
   "version": "1.5.0",
   "description": "Simple Promise Queue",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sekwah41/spq.git"
-  },
-  "keywords": [
-    "Simple",
-    "Promise",
-    "Queue"
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
   ],
-  "devDependencies": {
-    "jest": "27.3.1"
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config jestconfig.json",
+    "prepare": "yarn build",
+    "preversion": "yarn lint",
+    "prepublishOnly": "yarn test && yarn lint",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json"
   },
-  "author": "sekwah41",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sekwah41/spq/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sekwah41/spq.git"
+  },
+  "keywords": [
+    "promise",
+    "promises",
+    "future",
+    "deferred"
+  ],
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "ts-loader": "^9.2.6",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "author": {
+    "name": "Sekwah",
+    "email": "contact@sekwah.com",
+    "url": "https://github.com/sekwah41"
+  },
+  "license": "MIT",
   "homepage": "https://github.com/sekwah41/spq#readme",
   "dependencies": {
-    "events": "^3.3.0"
+    "events": "^3.3.0",
+    "typescript": "^4.4.4"
   }
 }

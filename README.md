@@ -8,6 +8,8 @@ whatever you choose to split processes into queues.
 
 Any custom promises also have the `then`, `catch` and `finally` methods.
 
+You have the ability to create tasks or wrap them with promises where needed.
+
 ## PromiseQueue
 ### Use
 **Note:** QueuedPromise can be set to anything and whatever it is it will always autoAdd to the queue the object was created from.
