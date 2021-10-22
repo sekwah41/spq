@@ -1,5 +1,6 @@
-
-import PromiseQueue, {QueuedPromiseFactory, QueuedTaskFactory} from '../index';
+import {PromiseQueue} from "../PromiseQueue";
+import {OptionalFunc, QueuedPromiseFactory} from "../TaskTypes";
+import {QueuedTaskFactory} from "../QueuedTask";
 
 describe('Basic checks on QueuedPromise', () => {
 
@@ -14,7 +15,7 @@ describe('Basic checks on QueuedPromise', () => {
 
     it('Checking when rejected that only catch is fired', () => {
 
-        let promise = QueuedPromise((resolve, reject) => {
+        const promise = QueuedPromise((resolve, reject) => {
             reject(6);
         });
 
@@ -24,7 +25,7 @@ describe('Basic checks on QueuedPromise', () => {
 
     it('catch() works', () => {
 
-        let promise = QueuedPromise((resolve, reject) => {
+        const promise = QueuedPromise((resolve, reject) => {
             reject(5);
         });
 
@@ -45,7 +46,7 @@ describe('Basic checks on QueuedTask', () => {
 
     it('Checking when rejected that only catch is fired', (done) => {
 
-        let promise = QueuedTask((resolve, reject) => {
+        const promise = QueuedTask((resolve, reject) => {
             reject(6);
         });
 
@@ -64,8 +65,8 @@ describe('Basic checks on QueuedTask', () => {
 
     it('catch() works', (done) => {
 
-        let returnedValues: any[] = [];
-        let promise = QueuedTask((resolve, reject) => {
+        const returnedValues: any[] = [];
+        const promise = QueuedTask((resolve, reject) => {
             reject(5);
         });
 
@@ -82,10 +83,10 @@ describe('Basic checks on QueuedTask', () => {
 describe('Promise order check', () => {
 
     it('Single queue (Forces set order)', (done) => {
-        let customQueue = new PromiseQueue(1);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(1);
+        const QueuedPromise = customQueue.QueuedPromise;
 
-        let returnedValues: any[] = [];
+        const returnedValues: any[] = [];
 
         QueuedPromise((resolve: () => void) => {
             returnedValues.push(1);
@@ -113,10 +114,10 @@ describe('Promise order check', () => {
 
     it('Double queue', (done) => {
 
-        let customQueue = new PromiseQueue(2);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(2);
+        const QueuedPromise = customQueue.QueuedPromise;
 
-        let returnedValues: any[] = [];
+        const returnedValues: any[] = [];
 
         QueuedPromise((resolve: () => void) => {
             returnedValues.push(1);
@@ -142,10 +143,10 @@ describe('Promise order check', () => {
 
     it('Emit finished event', (done) => {
 
-        let customQueue = new PromiseQueue(2);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(2);
+        const QueuedPromise = customQueue.QueuedPromise;
 
-        let returnedValues: any[] = [];
+        const returnedValues: any[] = [];
 
         customQueue.on('finished', () => {
             expect(returnedValues).toMatchObject([1,2,3]);
@@ -168,12 +169,12 @@ describe('Promise order check', () => {
 
     it('Pause Queue', (done) => {
 
-        let customQueue = new PromiseQueue(2);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(2);
+        const QueuedPromise = customQueue.QueuedPromise;
 
         customQueue.pause();
 
-        let returnedValues: any[] = [];
+        const returnedValues: any[] = [];
 
         QueuedPromise((resolve: () => void) => {
             returnedValues.push(1);
@@ -212,18 +213,18 @@ describe('Promise order check', () => {
 describe('Works with promise functions', () => {
 
     it('Resolves', async () => {
-        let customQueue = new PromiseQueue(1);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(1);
+        const QueuedPromise = customQueue.QueuedPromise;
 
-        let testPromise = QueuedPromise((resolve: (text: string) => void) => {
+        const testPromise = QueuedPromise((resolve: (text: string) => void) => {
             resolve("Value has returned");
         });
 
-        let testPromise2 = QueuedPromise((resolve: (text: string) => void) => {
+        const testPromise2 = QueuedPromise((resolve: (text: string) => void) => {
             resolve("Here is another");
         });
 
-        let testPromise3 = QueuedPromise((resolve: (text: string) => void) => {
+        const testPromise3 = QueuedPromise((resolve: (text: string) => void) => {
             resolve("My name is steve");
         });
 
@@ -233,18 +234,18 @@ describe('Works with promise functions', () => {
     });
 
     it('Works with promise all', async () => {
-        let customQueue = new PromiseQueue(1);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(1);
+        const QueuedPromise = customQueue.QueuedPromise;
 
-        let testPromise = QueuedPromise((resolve: (text: string) => void) => {
+        const testPromise = QueuedPromise((resolve: (text: string) => void) => {
             resolve("test1");
         });
 
-        let testPromise2 = QueuedPromise((resolve: (text: string) => void) => {
+        const testPromise2 = QueuedPromise((resolve: (text: string) => void) => {
             resolve("test2");
         });
 
-        let testPromise3 = QueuedPromise((resolve: (text: string) => void) => {
+        const testPromise3 = QueuedPromise((resolve: (text: string) => void) => {
             resolve("test3");
         });
 
@@ -252,10 +253,10 @@ describe('Works with promise functions', () => {
     });
 
     it('Works with await', async () => {
-        let customQueue = new PromiseQueue(1);
-        let QueuedPromise = customQueue.QueuedPromise;
+        const customQueue = new PromiseQueue(1);
+        const QueuedPromise = customQueue.QueuedPromise;
 
-        let result = await QueuedPromise((resolve: (text: string) => void) => {
+        const result = await QueuedPromise((resolve: (text: string) => void) => {
             resolve("Await test");
         });
 
@@ -264,5 +265,3 @@ describe('Works with promise functions', () => {
 
 
 });
-
-process.on('unhandledRejection', r => console.log("ERROR", r));

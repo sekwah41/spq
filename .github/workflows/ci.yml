@@ -20,8 +20,10 @@ jobs:
       - name: Install NPM Packages
         run: |
           yarn install --immutable
-      - name: Create Release
+      - name: Run Tests
         run: yarn test
+      - name: Check code linting
+        run: yarn lint
   deploy:
     needs: test
     runs-on: ubuntu-latest
