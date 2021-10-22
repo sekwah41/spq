@@ -14,7 +14,8 @@
     "preversion": "yarn lint",
     "prepublishOnly": "yarn test && yarn lint",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "release": "auto shipit"
   },
   "bugs": {
     "url": "https://github.com/sekwah41/spq/issues"
@@ -30,7 +31,12 @@
     "deferred"
   ],
   "devDependencies": {
+    "@auto-it/conventional-commits": "10.32.1",
+    "@auto-it/npm": "^10.32.1",
+    "@auto-it/released": "10.32.1",
     "@types/jest": "^27.0.2",
+    "auto": "^10.32.1",
+    "conventional-changelog-angular": "5.0.13",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.7",
@@ -48,5 +54,13 @@
   "dependencies": {
     "events": "^3.3.0",
     "typescript": "^4.4.4"
+  },
+  "auto": {
+    "plugins": [
+      "npm",
+      "conventional-commits",
+      "released"
+    ],
+    "onlyPublishWithReleaseLabel": true
   }
 }
