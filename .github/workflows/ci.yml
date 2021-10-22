@@ -28,10 +28,6 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
 
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
     steps:
       - uses: actions/checkout@v2
       - name: Prepare repository
@@ -49,5 +45,8 @@ jobs:
       - name: Install NPM Packages
         run: yarn install --immutable
       - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn release
 
