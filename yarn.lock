@@ -12,12 +12,12 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.32.3.tgz#8f30d8b99318d3b8b4857281a06c4c45e507d50c"
   integrity sha512-upBScyy/0m0eKdL7sq2z4SUELe0L8ye7Ybfxa3U7LHXWjZH0DJdKM4LY9Cz+Vj25A2ZWUO4sJPurXSfiECH6cw==
 
-"@auto-it/conventional-commits@10.32.1":
-  version "10.32.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/conventional-commits/-/conventional-commits-10.32.1.tgz#29edc06d32930773a5128a6dae36a5972ad29716"
-  integrity sha512-VKC/rucW1bnvHzuWVKabrlQ9WgjTEuk4vzgq1feVBXstCiGsmX1WbdUAToBzsfr0w+5Xv1qzVwjb+CARMT6eAw==
+"@auto-it/conventional-commits@10.32.3":
+  version "10.32.3"
+  resolved "https://registry.yarnpkg.com/@auto-it/conventional-commits/-/conventional-commits-10.32.3.tgz#fadc7d2ab44a08e1d6769727f168136a7ffe9df3"
+  integrity sha512-+qRKv6EYft0R18UO6qc9CcssmDe2w4snR0bg5r40xj5jsAEwtHqgbCSxwUjA8Es/X9l1QskfiWh4/isfJ5sdRQ==
   dependencies:
-    "@auto-it/core" "10.32.1"
+    "@auto-it/core" "10.32.3"
     array.prototype.flatmap "^1.2.2"
     conventional-changelog-core "^4.2.0"
     conventional-changelog-preset-loader "^2.3.4"
@@ -172,18 +172,6 @@
   dependencies:
     parse-author "^2.0.0"
     parse-github-url "1.0.2"
-
-"@auto-it/released@10.32.1":
-  version "10.32.1"
-  resolved "https://registry.yarnpkg.com/@auto-it/released/-/released-10.32.1.tgz#b295344a0af9532c1a94d9906dc94982e0315c61"
-  integrity sha512-MnJ3XG04It0uL7Ah8cmkFBpmYZx94vBYJP7C2o7sTgsDRwhIz1vmws6edk3BHvzIAcfDoq7x5mPZv8r/WTCECQ==
-  dependencies:
-    "@auto-it/bot-list" "10.32.1"
-    "@auto-it/core" "10.32.1"
-    deepmerge "^4.0.0"
-    fp-ts "^2.5.3"
-    io-ts "^2.1.2"
-    tslib "2.1.0"
 
 "@auto-it/released@10.32.3":
   version "10.32.3"
