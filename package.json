@@ -31,7 +31,7 @@
     "deferred"
   ],
   "devDependencies": {
-    "@auto-it/conventional-commits": "10.32.1",
+    "@auto-it/conventional-commits": "10.32.3",
     "@auto-it/npm": "10.32.1",
     "@auto-it/released": "10.32.3",
     "@types/jest": "27.0.2",
