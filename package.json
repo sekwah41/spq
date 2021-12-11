@@ -33,7 +33,7 @@
   "devDependencies": {
     "@auto-it/conventional-commits": "10.32.3",
     "@auto-it/npm": "10.32.3",
-    "@auto-it/released": "10.32.3",
+    "@auto-it/released": "10.32.5",
     "@types/jest": "27.0.3",
     "auto": "10.32.5",
     "conventional-changelog-angular": "5.0.13",
