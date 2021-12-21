@@ -7,7 +7,7 @@ Rather than rewriting the workflow to work with scheduling library's this is des
 After a few lines of configuring you should be able to just replace `new Promise` with `QueuedPromise`.
 You can also provide custom names which will allow you to add the promises to different queues.
 
-### Example
+# Example
 Using promises
 ```javascript
 const firstPromise = new Promise((resolve: () => void) => {
@@ -43,13 +43,13 @@ const secondPromise = QueuedPromise((resolve: () => void) => {
 Promise.all([firstPromise, secondPromise]);
 ```
 
-## PromiseQueue
-### Methods
+# PromiseQueue
+## Methods
 `pause()` paused the queue but doesnt stop already running promises
 
 `resume()` starts the queue and starts firing tasks.
 
-### Events
+## Events
 Do not change _ values directly. The event will not fire and changing to true wont trigger
 queueing of new tasks.
 #### `paused`
@@ -61,7 +61,15 @@ Fired when the queue is resumed.
 #### `finished`
 Fired when the last task is finished and no more are queued.
 
+# Contributing
 
-### Future of this project
+Please ensure that your commits are in the following style for PR's
+
+https://www.conventionalcommits.org/en/v1.0.0/
+
+All new methods or fixes must be covered with unit tests.
+
+
+# Future of this project
 This was meant to be a quick projects to help queue code which otherwise overloads systems, if there are any features
 please feel free to open an issue and suggest possible features or ways to interact with this library.
