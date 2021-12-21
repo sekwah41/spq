@@ -1,4 +1,4 @@
-spq (Simple Promise Queue) [![Build](https://github.com/sekwah41/spq/actions/workflows/ci.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/ci.yml) [![CodeQL](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml)
+spq (Simple Promise Queue) [![Build](https://github.com/sekwah41/spq/actions/workflows/ci.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/ci.yml) [![CodeQL](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sekwah41/spq/actions/workflows/codeql-analysis.yml) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5476/badge)](https://bestpractices.coreinfrastructure.org/projects/5476)
 ================
 
 This project exists because of an ongoing problem in projects with too many promises resolving at once.
