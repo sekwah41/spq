@@ -35,7 +35,7 @@
     "@auto-it/npm": "10.32.5",
     "@auto-it/released": "10.32.5",
     "@types/jest": "27.4.0",
-    "auto": "10.32.5",
+    "auto": "10.32.6",
     "conventional-changelog-angular": "5.0.13",
     "jest": "27.4.6",
     "prettier": "2.5.1",
