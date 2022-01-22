@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "@auto-it/conventional-commits": "10.32.6",
-    "@auto-it/npm": "10.32.5",
+    "@auto-it/npm": "10.32.6",
     "@auto-it/released": "10.32.5",
     "@types/jest": "27.4.0",
     "auto": "10.32.6",
