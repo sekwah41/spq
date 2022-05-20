@@ -26,7 +26,10 @@ Promise.all([firstPromise, secondPromise]);
 
 Converted to using the PromiseQueue
 ```javascript
-const customQueue = new PromiseQueue(1);
+
+const { PromiseQueue } = require('spq');
+
+const customQueue = new spq.PromiseQueue(1);
 const QueuedPromise = customQueue.QueuedPromise;
 
 const firstPromise = QueuedPromise((resolve: () => void) => {
