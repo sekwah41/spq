@@ -34,7 +34,7 @@
     "@auto-it/conventional-commits": "10.37.1",
     "@auto-it/npm": "10.37.1",
     "@auto-it/released": "10.37.1",
-    "@types/jest": "27.5.1",
+    "@types/jest": "27.5.2",
     "auto": "10.37.1",
     "conventional-changelog-angular": "5.0.13",
     "jest": "27.5.1",
