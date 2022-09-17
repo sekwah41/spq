@@ -31,11 +31,11 @@
     "deferred"
   ],
   "devDependencies": {
-    "@auto-it/conventional-commits": "10.37.4",
-    "@auto-it/npm": "10.37.4",
-    "@auto-it/released": "10.37.4",
+    "@auto-it/conventional-commits": "10.37.6",
+    "@auto-it/npm": "10.37.6",
+    "@auto-it/released": "10.37.6",
     "@types/jest": "27.5.2",
-    "auto": "10.37.4",
+    "auto": "10.37.6",
     "conventional-changelog-angular": "5.0.13",
     "jest": "27.5.1",
     "prettier": "2.7.1",
