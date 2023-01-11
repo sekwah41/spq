@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/sekwah41/spq/compare/v2.0.1...v2.0.2) (2023-01-11)
+
+
+### Bug Fixes 🐛
+
+* bump typescript version ([c4cd7b9](https://github.com/sekwah41/spq/commit/c4cd7b96ab0699f503a9f33b4d22d0476e8816ff))
+
 ## [2.0.1](https://github.com/sekwah41/spq/compare/v2.0.0...v2.0.1) (2023-01-11)
 
 
