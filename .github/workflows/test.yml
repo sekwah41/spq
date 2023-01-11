@@ -20,11 +20,15 @@ jobs:
       - name: Install NPM Packages
         run: |
           yarn install --immutable
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
       - uses: ArtiomTr/jest-coverage-report-action@v2
         id: coverage
         with:
+          package-manager: yarn
           test-script: yarn test
           output: comment, report-markdown
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
+          prnumber: ${{ steps.findPr.outputs.number }}
           message: ${{ steps.coverage.outputs.report }}
