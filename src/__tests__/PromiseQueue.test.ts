@@ -58,6 +58,29 @@ describe("Basic checks on QueuedTask", () => {
       });
   });
 
+  it("Checking when rejected and reject is provided in then that only catch is fired", (done) => {
+    const promise = QueuedTask((resolve, reject) => {
+      reject(6);
+    });
+
+    let hasRunThen = false;
+    let hasRunCatch = false;
+    promise
+      .then(
+        () => {
+          hasRunThen = true;
+        },
+        () => {
+          hasRunCatch = true;
+        },
+      )
+      .finally(() => {
+        expect(hasRunThen).toBe(false);
+        expect(hasRunCatch).toBe(true);
+        done();
+      });
+  });
+
   it("catch() works", (done) => {
     const returnedValues: any[] = [];
     const promise = QueuedTask((resolve, reject) => {
