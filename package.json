@@ -14,8 +14,7 @@
     "preversion": "yarn lint",
     "prepublishOnly": "yarn test && yarn lint",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
-    "release": "auto shipit"
+    "lint": "tslint -p tsconfig.json"
   },
   "bugs": {
     "url": "https://github.com/sekwah41/spq/issues"
@@ -35,14 +34,15 @@
     "@auto-it/npm": "10.37.6",
     "@auto-it/released": "10.37.6",
     "@types/jest": "27.5.2",
+    "@typescript-eslint/eslint-plugin": "5.48.1",
+    "@typescript-eslint/parser": "5.48.1",
     "auto": "10.37.6",
     "conventional-changelog-angular": "5.0.13",
+    "eslint": "8.31.0",
     "jest": "27.5.1",
     "prettier": "2.7.1",
     "ts-jest": "27.1.5",
-    "ts-loader": "9.4.1",
-    "tslint": "6.1.3",
-    "tslint-config-prettier": "1.18.0"
+    "ts-loader": "9.4.1"
   },
   "author": {
     "name": "Sekwah",
