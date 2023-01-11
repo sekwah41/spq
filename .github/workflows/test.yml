@@ -20,5 +20,11 @@ jobs:
       - name: Install NPM Packages
         run: |
           yarn install --immutable
-      - name: Run Tests
-        run: yarn test
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage
+        with:
+          test-script: yarn test
+          output: comment, report-markdown
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: ${{ steps.coverage.outputs.report }}
