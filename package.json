@@ -10,9 +10,6 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --config jestconfig.json",
-    "prepare": "yarn build",
-    "preversion": "yarn lint",
-    "prepublishOnly": "yarn test && yarn lint",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json"
   },
@@ -30,13 +27,9 @@
     "deferred"
   ],
   "devDependencies": {
-    "@auto-it/conventional-commits": "10.37.6",
-    "@auto-it/npm": "10.37.6",
-    "@auto-it/released": "10.37.6",
     "@types/jest": "27.5.2",
     "@typescript-eslint/eslint-plugin": "5.48.1",
     "@typescript-eslint/parser": "5.48.1",
-    "auto": "10.37.6",
     "conventional-changelog-angular": "5.0.13",
     "eslint": "8.31.0",
     "jest": "27.5.1",
@@ -54,13 +47,5 @@
   "dependencies": {
     "events": "^3.3.0",
     "typescript": "^4.4.4"
-  },
-  "auto": {
-    "plugins": [
-      "npm",
-      "conventional-commits",
-      "released"
-    ],
-    "onlyPublishWithReleaseLabel": true
   }
 }
