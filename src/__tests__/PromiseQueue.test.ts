@@ -1,6 +1,5 @@
 import { PromiseQueue } from "../PromiseQueue";
-import { OptionalFunc, QueuedPromiseFactory } from "../TaskTypes";
-import { QueuedTaskFactory } from "../QueuedTask";
+import { QueuedPromiseFactory } from "../TaskTypes";
 
 describe("Basic checks on QueuedPromise", () => {
   let customQueue: PromiseQueue;
@@ -28,17 +27,17 @@ describe("Basic checks on QueuedPromise", () => {
   });
 });
 
-describe("Basic checks on QueuedTask", () => {
+describe("Basic checks on QueuedPromise", () => {
   let customQueue: PromiseQueue;
-  let QueuedTask: QueuedTaskFactory;
+  let QueuedPromise: QueuedPromiseFactory;
 
   beforeEach(() => {
     customQueue = new PromiseQueue(1);
-    QueuedTask = customQueue.QueuedTask;
+    QueuedPromise = customQueue.QueuedPromise;
   });
 
   it("Checking when rejected that only catch is fired", (done) => {
-    const promise = QueuedTask((resolve, reject) => {
+    const promise = QueuedPromise((resolve, reject) => {
       reject(6);
     });
 
@@ -59,7 +58,7 @@ describe("Basic checks on QueuedTask", () => {
   });
 
   it("Checking when rejected and reject is provided in then that only catch is fired", (done) => {
-    const promise = QueuedTask((resolve, reject) => {
+    const promise = QueuedPromise((resolve, reject) => {
       reject(6);
     });
 
@@ -83,7 +82,7 @@ describe("Basic checks on QueuedTask", () => {
 
   it("catch() works", (done) => {
     const returnedValues: any[] = [];
-    const promise = QueuedTask((resolve, reject) => {
+    const promise = QueuedPromise((resolve, reject) => {
       reject(5);
     });
 
