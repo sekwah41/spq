@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/sekwah41/spq/compare/v2.0.2...v2.0.3) (2023-01-11)
+
+
+### Bug Fixes 🐛
+
+* typescript issue with building ([2e11d2f](https://github.com/sekwah41/spq/commit/2e11d2f34785d48623eec3293dfdc8f5ad52ac51))
+
 ## [2.0.2](https://github.com/sekwah41/spq/compare/v2.0.1...v2.0.2) (2023-01-11)
 
 
