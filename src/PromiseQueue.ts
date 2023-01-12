@@ -1,6 +1,6 @@
 import EventEmitter from "events";
 import { QueuedPromiseFactory, QueuedTaskProps } from "./TaskTypes";
-import { QueuedTask, QueuedTaskFactory } from "./QueuedTask";
+import { QueuedTask } from "./QueuedTask";
 
 function remove(array: any[], element: any) {
   const index = array.indexOf(element);
@@ -13,7 +13,6 @@ export class PromiseQueue extends EventEmitter {
   private readonly maxConcurrent: number;
   private _shouldProcessQueue: boolean;
   private promiseQueue: QueuedTask[] = [];
-  private QueuedTask: QueuedTaskFactory;
   public QueuedPromise: QueuedPromiseFactory;
 
   constructor(maxConcurrent = 1, autoAdd = true) {
@@ -21,22 +20,15 @@ export class PromiseQueue extends EventEmitter {
 
     this.processing = [];
 
-    // There may be a better way to implement this using <T>
-    this.QueuedTask = (props: QueuedTaskProps) => {
-      const newTask = new QueuedTask(props);
-      if (autoAdd) {
-        this.add(newTask);
-      }
-      return newTask;
-    };
-
     /**
      * Will always be auto added as there isn't access to the task to queue.
      * @param task
      */
     this.QueuedPromise = (task: QueuedTaskProps) => {
       const newTask = new QueuedTask(task);
-      this.add(newTask);
+      if (autoAdd) {
+        this.add(newTask);
+      }
       return newTask.returnPromise();
     };
 

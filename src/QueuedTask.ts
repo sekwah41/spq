@@ -26,10 +26,7 @@ export class QueuedTask {
     }
   }
 
-  public then(thenResolve: any, thenReject?: any) {
-    if (thenReject) {
-      this.catch(thenReject);
-    }
+  public then(thenResolve: any) {
     this.resolveFunctions.push(thenResolve);
     return this;
   }
