@@ -1,6 +1,10 @@
 import { PromiseQueue } from "../PromiseQueue";
 import { QueuedPromiseFactory } from "../TaskTypes";
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 describe("Basic checks on QueuedPromise", () => {
   let customQueue: PromiseQueue;
   let QueuedPromise: QueuedPromiseFactory;
@@ -10,7 +14,31 @@ describe("Basic checks on QueuedPromise", () => {
     QueuedPromise = customQueue.QueuedPromise;
   });
 
-  it("Checking when rejected that only catch is fired", () => {
+  it("Checking when resolving, that the promise resolves", () => {
+    const promise = QueuedPromise((resolve) => {
+      resolve(2);
+    });
+
+    return expect(promise).resolves.toEqual(2);
+  });
+
+  it("Async with return resolves", () => {
+    const promise = QueuedPromise(async () => {
+      return 3;
+    });
+
+    return expect(promise).resolves.toEqual(3);
+  });
+
+  it("Async with throw rejects", () => {
+    const promise = QueuedPromise(async () => {
+      throw 4;
+    });
+
+    return expect(promise).rejects.toEqual(4);
+  });
+
+  it("Checking when rejected that the promise rejects", () => {
     const promise = QueuedPromise((resolve, reject) => {
       reject(6);
     });
@@ -120,6 +148,31 @@ describe("Promise order check", () => {
     QueuedPromise((resolve: () => void) => {
       returnedValues.push(3);
       resolve();
+    });
+
+    customQueue.on("finished", () => {
+      expect(returnedValues).toMatchObject([1, 2, 3]);
+      done();
+    });
+  });
+
+  it("Single queue async (Forces set order)", (done) => {
+    const customQueue = new PromiseQueue(1);
+    const QueuedPromise = customQueue.QueuedPromise;
+
+    const returnedValues: any[] = [];
+
+    QueuedPromise(async () => {
+      returnedValues.push(1);
+    });
+
+    QueuedPromise(async () => {
+      await sleep(10);
+      returnedValues.push(2);
+    });
+
+    QueuedPromise(async () => {
+      returnedValues.push(3);
     });
 
     customQueue.on("finished", () => {

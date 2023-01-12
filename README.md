@@ -47,6 +47,14 @@ const secondPromise = QueuedPromise((resolve: () => void) => {
 Promise.all([firstPromise, secondPromise]);
 ```
 
+You can also add async functions to the queue with the following syntax.
+
+```javascript
+const firstPromise = QueuedPromise(async () => {
+  await someWork();
+});
+```
+
 # PromiseQueue
 
 ## Methods
