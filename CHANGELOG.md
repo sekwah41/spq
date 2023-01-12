@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/sekwah41/spq/compare/v2.0.3...v2.1.0) (2023-01-12)
+
+
+### Bug Fixes 🐛
+
+* made QueuedTask private to reduce confusion ([85cc895](https://github.com/sekwah41/spq/commit/85cc895589aa2bf7a1eaefc21ef5332f62874dfc))
+
+
+### Features ✨
+
+* support adding async into the queue ([9c380b0](https://github.com/sekwah41/spq/commit/9c380b0ea81ccb813a4ccf8f724c1e24368bb9d1))
+
 ## [2.0.3](https://github.com/sekwah41/spq/compare/v2.0.2...v2.0.3) (2023-01-11)
 
 
