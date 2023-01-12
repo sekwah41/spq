@@ -32,14 +32,12 @@ export class PromiseQueue extends EventEmitter {
 
     /**
      * Will always be auto added as there isn't access to the task to queue.
-     * @param props
+     * @param task
      */
     this.QueuedPromise = (task: QueuedTaskProps) => {
       const newTask = new QueuedTask(task);
       this.add(newTask);
-      return new Promise((res, rej) => {
-        newTask.then(res).catch(rej);
-      });
+      return newTask.returnPromise();
     };
 
     this._currentlyRunning = 0;
@@ -88,6 +86,6 @@ export class PromiseQueue extends EventEmitter {
       remove(this.processing, promise);
     });
     this._currentlyRunning++;
-    promise.promiseFunc(promise.resolve, promise.reject);
+    promise.run();
   }
 }
