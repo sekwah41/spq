@@ -13,7 +13,7 @@ export class PromiseQueue extends EventEmitter {
   private readonly maxConcurrent: number;
   private _shouldProcessQueue: boolean;
   private promiseQueue: QueuedTask[] = [];
-  public QueuedTask: QueuedTaskFactory;
+  private QueuedTask: QueuedTaskFactory;
   public QueuedPromise: QueuedPromiseFactory;
 
   constructor(maxConcurrent = 1, autoAdd = true) {
