@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 18.x
       - name: Cache .yarn/cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('package.json') }}
