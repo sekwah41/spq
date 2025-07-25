@@ -342,10 +342,10 @@ describe("Concurrency checks on QueuedPromise", () => {
     };
 
     const promises = [
-      QueuedPromise(() => task(50)),
-      QueuedPromise(() => task(50)),
-      QueuedPromise(() => task(50)),
-      QueuedPromise(() => task(50)),
+      QueuedPromise(async () => await task(50)),
+      QueuedPromise(async () => await task(50)),
+      QueuedPromise(async () => await task(50)),
+      QueuedPromise(async () => await task(50)),
     ];
     const results = await Promise.all(promises);
     expect(maxRunning).toBeLessThanOrEqual(2);
@@ -364,12 +364,32 @@ describe("Concurrency checks on QueuedPromise", () => {
     };
 
     const promises = [
-      QueuedPromise(() => task(1, 30)),
-      QueuedPromise(() => task(2, 10)),
-      QueuedPromise(() => task(3, 20)),
+      QueuedPromise(async () => await task(1, 30)),
+      QueuedPromise(async () => await task(2, 10)),
+      QueuedPromise(async () => await task(3, 20)),
     ];
     await Promise.all(promises);
     expect(order).toEqual([1, 2, 3]);
+  });
+
+  it("should process tasks in order when concurrency is 1", async () => {
+    const queue = new PromiseQueue(3);
+    const QueuedPromise = queue.QueuedPromise;
+    const order: number[] = [];
+
+    const task = async (id: number, delay: number) => {
+      await sleep(delay);
+      order.push(id);
+      return id;
+    };
+
+    const promises = [
+      QueuedPromise(async () => await task(1, 30)),
+      QueuedPromise(async () => await task(2, 10)),
+      QueuedPromise(async () => await task(3, 20)),
+    ];
+    await Promise.all(promises);
+    expect(order).toEqual([2, 3, 1]);
   });
 });
 
