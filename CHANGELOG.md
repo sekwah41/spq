@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/sekwah41/spq/compare/v2.1.0...v2.1.1) (2025-07-25)
+
+
+### Bug Fixes 🐛
+
+* update to work with async await properly ([cd47f72](https://github.com/sekwah41/spq/commit/cd47f7202645c6b33a04894664078c9e1d8d0227))
+
 ## [2.1.0](https://github.com/sekwah41/spq/compare/v2.0.3...v2.1.0) (2023-01-12)
 
 
