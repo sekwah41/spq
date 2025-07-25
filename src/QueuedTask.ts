@@ -3,7 +3,7 @@ import { OptionalFunc, QueuedTaskProps } from "./TaskTypes";
 export type QueuedTaskFactory = (props: QueuedTaskProps) => QueuedTask;
 
 export class QueuedTask {
-  // In case for some reason its not been set
+  // In case for some reason it's not been set
   // tslint:disable-next-line:no-empty
   private resolve: OptionalFunc = () => {};
   // tslint:disable-next-line:no-empty
@@ -15,14 +15,16 @@ export class QueuedTask {
   private promise: any;
   public promiseFunc: QueuedTaskProps;
 
-  public run() {
-    // Not perfect detection, but it works well in this case, especially as if it's not async it NEEDS at least to look at resolve() to ot hang.
-    // As we are using typescript and not JS it depends on the compiler target as to if this works. If its wrong it'll use _awaiter
-    if (this.promiseFunc.constructor.name == "AsyncFunction") {
-      // Shuts typescript up for now, need to check at a later date what's going on.
-      (this.promiseFunc as any)().then(this.resolve).catch(this.reject);
-    } else {
-      this.promiseFunc(this.resolve, this.reject);
+  public run(): void {
+    let result: any;
+    try {
+      result = this.promiseFunc(this.resolve, this.reject);
+    } catch (err) {
+      this.reject(err);
+      return;
+    }
+    if (result?.then && typeof result.then === "function") {
+      result.then(this.resolve).catch(this.reject);
     }
   }
 

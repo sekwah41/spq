@@ -324,3 +324,52 @@ describe("Works with promise functions", () => {
     expect(result).toEqual("Await test");
   });
 });
+
+describe("Concurrency checks on QueuedPromise", () => {
+  it("should only run the allowed number of concurrent async tasks", async () => {
+    const queue = new PromiseQueue(2);
+    const QueuedPromise = queue.QueuedPromise;
+    let running = 0;
+    let maxRunning = 0;
+
+    const task = async (delay: number) => {
+      console.log("Started task");
+      running++;
+      maxRunning = Math.max(maxRunning, running);
+      await sleep(delay);
+      running--;
+      return delay;
+    };
+
+    const promises = [
+      QueuedPromise(() => task(50)),
+      QueuedPromise(() => task(50)),
+      QueuedPromise(() => task(50)),
+      QueuedPromise(() => task(50)),
+    ];
+    const results = await Promise.all(promises);
+    expect(maxRunning).toBeLessThanOrEqual(2);
+    expect(results).toEqual([50, 50, 50, 50]);
+  });
+
+  it("should process tasks in order when concurrency is 1", async () => {
+    const queue = new PromiseQueue(1);
+    const QueuedPromise = queue.QueuedPromise;
+    const order: number[] = [];
+
+    const task = async (id: number, delay: number) => {
+      await sleep(delay);
+      order.push(id);
+      return id;
+    };
+
+    const promises = [
+      QueuedPromise(() => task(1, 30)),
+      QueuedPromise(() => task(2, 10)),
+      QueuedPromise(() => task(3, 20)),
+    ];
+    await Promise.all(promises);
+    expect(order).toEqual([1, 2, 3]);
+  });
+});
+
