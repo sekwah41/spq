@@ -27,12 +27,12 @@
     "deferred"
   ],
   "devDependencies": {
-    "@types/jest": "29.2.5",
+    "@types/jest": "30.0.0",
     "@typescript-eslint/eslint-plugin": "5.48.1",
     "@typescript-eslint/parser": "5.48.1",
     "conventional-changelog-angular": "5.0.13",
     "eslint": "8.31.0",
-    "jest": "29.3.1",
+    "jest": "30.2.0",
     "prettier": "2.7.1",
     "ts-jest": "29.0.4",
     "ts-loader": "9.4.1"
